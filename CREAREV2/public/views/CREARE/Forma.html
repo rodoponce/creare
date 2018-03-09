@@ -10,6 +10,7 @@
                      <div class="well m-t"><strong>Comentario</strong><p>{{Leyenda}}</p></div>        
                 </div>
 <!-- -->
+
 <!--  ComboBox Pais -->
 <div class="table-responsive m-t">
     <div class="form-group " ><label class="col-sm-2 control-label"><h3>Pais</h3></label>
@@ -46,22 +47,6 @@
    </div>
 <!-- -->
 
-<!-- Texbox Curp-->
-<div ng-show="Curp"  class="form-group"><label class="col-sm-2 control-label"> <h3>Curp</h3><h5  ng-show="ErrorCurp"><small ng-style="{color:'red'}"> * No Valido </small> </h5>  <br/> </label>
-    <div>
-<div  class="col-sm-10">
-    
-        <h3><small><strong> Ingrese su  Curp</strong> </small></h3>
-        <input  data-mask="aaaa999999aaaaaa99"   ng-model="ClaveCURP" type="text" placeholder="" id="exampleInputEmail2" ng-maxlength="18" ng-minlength="18"
-        class="form-control">
-
-        <br>
-        <button class="btn btn-primary dim" ng-click="ConsultarCURP()" ><i class="fa fa-edit"></i> Validar CURP</button>
-    </div>   
-    </div>   
-    </div>
-    <br> 
-<!-- -->
 <!-- Div Marca -->
                                 <div ng-show="Marca"  class="form-group"><label class="col-sm-2 control-label"> <h3>Marca</h3>  <br/>
                                 </label>
@@ -83,7 +68,7 @@
                                 <br>
 <!-- -->
 
-<!-- Si es Estudiante Extarnjero Aparecera Para Capturar La Esxuela -->
+<!-- Si es Estudiante Extarnjero Aparecera Para Capturar La Escuela -->
                                 <div ng-show="Es"  class="form-group"><label class="col-sm-2 control-label"> <h3>Escuela</h3> <small>   </small> <br/>
                                 </label>
                                 <div>
@@ -144,7 +129,22 @@
                 <!--  -->
     </div>
 <!-- -- >
-    
+<!-- Texbox Curp-->
+<div ng-show="Curp"  class="form-group"><label class="col-sm-2 control-label"> <h3>Curp</h3><h5  ng-show="ErrorCurp"><small ng-style="{color:'red'}"> * No Valido </small> </h5>  <br/> </label>
+    <div>
+        <div  class="col-sm-10">
+
+            <h3><small><strong> Ingrese su CURP</strong> </small></h3>
+            <input  data-mask="aaaa999999aaaaaa99"   ng-model="ClaveCURP" type="text" placeholder="" id="exampleInputEmail2" ng-maxlength="18" ng-minlength="18"
+            class="form-control">
+
+            <br>
+            <button class="btn btn-primary dim" ng-click="ConsultarCURP()" ><i class="fa fa-edit"></i> Validar CURP</button>
+        </div>   
+    </div>   
+</div>
+<br> 
+<!-- -->  
 
 <!-- Fomularios Datos Personales-->                        
     <div class="form-group"><label class="col-sm-2 control-label"> <h3>Datos</h3> <h4> Personales  </h4> <br/> </label>
@@ -200,7 +200,7 @@
                   <h3><small><strong>Email</strong> </small> </h3>
                   <div  onkeypress="" class="input-group m-b"><span class="input-group-addon"><img alt="image" width="15" height="15" src="img/Micon.jpg"/></span> 
                     <input ng-model="campoCorreo" type="text" ng-disabled="Mail1"
-                    placeholder="Correo" ng-keypress="ValidarCorreo()"
+                    placeholder="Correo" ng-keypress="ValidarCorreo()" ng-keyup="Checkcorreo()"
                     class="form-control">
                     </div>
                     <h5 ><small ng-show="errorCorreo" ng-style="{color:'red'}"> * Por favor Ingrese Correo</small> </h5>
@@ -283,34 +283,36 @@
 <!-- -->
 
   <!--Como Te Enteraste--> 
-  <div class="form-group"><label class="col-sm-2 control-label">¿Como te enteraste?<br/></label>
+  <div class="form-group"><label class="col-sm-2 control-label">¿Como te enteraste?<br/>
+    <h5 ><small ng-show="errorEnterado" ng-style="{color:'red'}"> * Por Favor Responda</small> </h5>
+</label>
                         
     <div class="col-sm-10">
         <br>
         <br>
         <div>
-            <label><input icheck type="checkbox" name="radioTest" nf-disabled="facebook" ng-model="CFacebook"><i class="fa fa-facebook-square"></i>Facebook</label>
+            <label><input icheck type="checkbox" name="radioTest" nf-disabled="facebook" ng-model="CFacebook" ng-change="VerficicarContestados()"><i class="fa fa-facebook-square"></i>     Facebook</label>
         </div>
         
         <div>
-            <label><input icheck type="checkbox" name="radioTest" nf-disabled="Twitter" ng-model="CTwitter"><i class="fa fa-twitter-square"></i>Twitter</label>
+            <label><input icheck type="checkbox" name="radioTest" nf-disabled="Twitter" ng-model="CTwitter" ng-change="VerficicarContestados()"><i class="fa fa-twitter-square"></i>     Twitter</label>
         </div>
 
         <div>
-            <label><input icheck type="checkbox" name="radioTest" nf-disabled="Conocido" ng-model="CConocido"><i class="fa fa-handshake-o"></i>Conocido</label>
+            <label><input icheck type="checkbox" name="radioTest" nf-disabled="Conocido" ng-model="CConocido" ng-change="VerficicarContestados()"><i class="fa fa-handshake-o"></i>     Conocido</label>
         </div>
 
         <div>
-            <label><input icheck type="checkbox" name="radioTest" nf-disabled="Participante" ng-model="CParticipante"><i class="fa fa-user-circle-o"></i>Participante</label>
+            <label><input icheck type="checkbox" name="radioTest" nf-disabled="Participante" ng-model="CParticipante" ng-change="VerficicarContestados()"><i class="fa fa-user-circle-o"></i>     Participante</label>
         </div>
 
         <div>
-            <label><input icheck type="checkbox" name="radioTest" nf-disabled="Escuela" ng-model="CEscuela"><i class="fa fa-mortar-board"></i>Escuela</label>
+            <label><input icheck type="checkbox" name="radioTest" nf-disabled="Escuela" ng-model="CEscuela" ng-change="VerficicarContestados()"><i class="fa fa-mortar-board"></i>     Escuela</label>
         </div>
         
         <div>
-            <label><input icheck type="checkbox" name="radioTest" nf-disabled="otro" ng-model="COtro" ng-change="MostrarOtro()">Otro</label>
-        </div>
+            <label><input icheck type="checkbox" name="radioTest" nf-disabled="otro" ng-model="COtro" ng-change="MostrarOtro()">     Otro</label>
+        </div> 
 
     </div>
 
@@ -338,18 +340,18 @@
                   <br>
               <div class="btn-group">
                   
-                    <label><input icheck type="checkbox" ng-model="IcSI" ng-disabled="ICVisible" ng-change="MostrarIC()"><i class="fa fa-thumbs-o-up"></i> SI </label>
+                    <label><input icheck type="checkbox" ng-model="IcSI" ng-disabled="ICVisible" ng-change="MostrarIC()"><i class="fa fa-thumbs-o-up"></i>     SI </label>
                 
-                    <label><input icheck type="checkbox" ng-model="IcNO" ng-disabled="ICNOVisible" ng-change="MostrarIC()"><i class="fa fa-thumbs-o-down"></i>NO </label>
+                    <label><input icheck type="checkbox" ng-model="IcNO" ng-disabled="ICNOVisible" ng-change="MostrarIC()"><i class="fa fa-thumbs-o-down"></i>     NO </label>
             
                 </div>
                 <div>
                     <br><label>  ¿Te Gustaria Recibir Informacion del Mes De La Moda?</label></div>
                     <br>
                     <div class="btn-group">
-                    <label> <input icheck type="checkbox" ng-model="ImmSi" ng-disabled="IMMVisible" ng-change="MostrarIMM()"><i class="fa  fa-thumbs-o-up"></i> SI </label>
+                    <label> <input icheck type="checkbox" ng-model="ImmSi" ng-disabled="IMMVisible" ng-change="MostrarIMM()"><i class="fa  fa-thumbs-o-up"></i>    SI </label>
 
-                    <label><input icheck type="checkbox" ng-model="ImmNo" ng-disabled="IMMNOVisible" ng-change="MostrarIMM()"><i class="fa  fa-thumbs-o-down"></i>NO </label>
+                    <label><input icheck type="checkbox" ng-model="ImmNo" ng-disabled="IMMNOVisible" ng-change="MostrarIMM()"><i class="fa  fa-thumbs-o-down"></i>     NO </label>
 
                     </div>
                 </div>

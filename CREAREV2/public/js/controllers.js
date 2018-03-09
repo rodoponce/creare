@@ -376,6 +376,7 @@ function MainCtrl($http) {
         $scope.errorInformacion=false;
         $scope.errorRFC=false;
         $scope.errorMarca=false;
+        $scope.errorEnterado=false;
 
         $scope.Miuniversidad="";
         $scope.marca="";
@@ -398,6 +399,15 @@ function MainCtrl($http) {
         $scope.ODescripcion="";
     }
 
+    $scope.VerficicarContestados=function(){
+        if($scope.CFacebook==false && $scope.CTwitter==false && $scope.CConocido==false &&             $scope.CParticipante==false && $scope.CEscuela==false && $scope.COtro==false){
+            $scope.errorEnterado=true;
+            SweetAlert.swal("Falta información", "Seleccione uno de los campos", "info");
+        }else{
+            $scope.errorEnterado=false;
+        }
+    }
+
     $scope.MostrarModa=function(){
         var Contadora=0;
 
@@ -408,7 +418,7 @@ function MainCtrl($http) {
                 Contadora++;
             }
             if(Contadora==5){
-                SweetAlert.swal("Máximo número de modalidades alcanzado", "Solo puede inscribirse hasta en 5 categorías","warning");
+                SweetAlert.swal("Máximo número de modalidades alcanzado", "Solo puede inscribirse hasta en 5 categorías de dama y caballero","warning");
                 if(Validar[0]==false){
                     $scope.DPrendaVestirVisible=true;
                 }
@@ -441,6 +451,10 @@ function MainCtrl($http) {
 
     $scope.MostrarDi= function(){
         
+        if($scope.DUAccesorio==false && $scope.DUMobiliario==false){
+            SweetAlert.swal("Falta información", "Seleccione uno de los campos", "info");
+        }
+
         if ($scope.DUAccesorio==true) {
 
             $scope.MobVisible=true;
@@ -471,6 +485,7 @@ function MainCtrl($http) {
                 $scope.errorInformacion=false;
             }
             else{
+                SweetAlert.swal("Falta información", "Seleccione uno de los campos", "info");
                 $scope.errorInformacion=true;
                 $scope.ICNOVisible=false;
                 $scope.ICVisible=false;
@@ -491,6 +506,7 @@ function MainCtrl($http) {
                 $scope.errorInformacion=false;
             }
             else{
+                SweetAlert.swal("Falta información", "Seleccione uno de los campos", "info");
                 $scope.errorInformacion=true;
                 $scope.IMMNOVisible=false;
                 $scope.IMMVisible=false;
@@ -499,7 +515,11 @@ function MainCtrl($http) {
     };
 
     $scope.MostrarOtro= function(){
-        
+        if($scope.CFacebook==false && $scope.CTwitter==false && $scope.CConocido==false &&             $scope.CParticipante==false && $scope.CEscuela==false && $scope.COtro==false){
+            $scope.errorEnterado=true;
+            SweetAlert.swal("Falta información", "Seleccione uno de los campos", "info");
+        }
+
         if($scope.VistaOtro==true){
             $scope.VistaOtro=false;
         }else{
@@ -543,7 +563,7 @@ function MainCtrl($http) {
     }
     //Revisar el si no es vlaido el curp 
     $scope.ConsultarCURP= function(){        
-        if($scope.ClaveCURP==undefined)
+        if($scope.ClaveCURP=="")
         {
                 $scope.ErrorCurp=true;
         }
@@ -551,27 +571,39 @@ function MainCtrl($http) {
         {
             $http.get('http://201.144.43.183/API.RENAPO/Renapo/v1/GetRenapo/' + $scope.ClaveCURP)
           .success(function(Resultado){
-               $scope.ErrorCurp=false;
-               $scope.campoNombre=Resultado.nombres;
-               $scope.campoApellidoPaterno=Resultado.primerApellido;
-               $scope.campoApellidoMaterno=Resultado.segundoApellido;
-               $scope.campoSexo=Resultado.sexo;
-               $scope.sampleDate=Resultado.fechNac;
+            if (Resultado.statusOper=='EXITOSO'){
+                $scope.ErrorCurp=false;
+                $scope.campoNombre=Resultado.nombres;
+                $scope.campoApellidoPaterno=Resultado.primerApellido;
+                $scope.campoApellidoMaterno=Resultado.segundoApellido;
+                $scope.campoSexo=Resultado.sexo;
+                $scope.sampleDate=Resultado.fechNac;
+            }
+            else{
+                $scope.ErrorCurp=true;
+                SweetAlert.swal("No se localizaron datos para la CURP dada", "Verifica tu información", "error");
+            }
+             
           })
           .error(function(err){
+            SweetAlert.swal("Espere un momento", "Sistema no disponible, intente nuevamente", "error");
             $scope.ErrorCurp=true;
-              console.log(err);
           });
         }
     }
 
-$scope.ValidarCorreo = function ()
-{
+
+$scope.ValidarCorreo = function (){
  var letra= $scope.campoCorreo;
-  
     re=/^([\da-z_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
 	if(!re.exec(letra)){
+        $scope.errorCorreo=true;
+		console.log('email no valido');
 	}
+	else{
+        $scope.errorCorreo=false;
+        console.log('email valido');
+    }   
 }
 
 $scope.Checkcorreo = function ()
@@ -593,7 +625,8 @@ $scope.registrarDatosforma = function () {
     //Verificar que el Correo este escrito correctamente con el correo de verificación
     if($scope.campoCorreo!= $scope.campoCorreoVerificacion){
 
-        SweetAlert.swal("Verificar su correo");
+        $scope.errorCorreo=true;
+        SweetAlert.swal("Error", "Verificar que su correo sea válido", "warning");
 
     }
     //Una vez revisado esto, se procede a averiguar si no hay un registro previo usando la CURP y/o Correo como medios de verificacion
@@ -726,8 +759,17 @@ $scope.registrarDatosforma = function () {
       $scope.desModalidades=false;
       $scope.Escuela=false;
 
+function LimpiarDatos(){
+        $scope.campoNombre="";
+        $scope.campoApellidoPaterno="";
+        $scope.campoApellidoMaterno="";
+        $scope.campoSexo="";
+        $scope.sampleDate="";
+};
+
 function Activar()
 {
+    $scope.Es=false;
     $scope.Curp=true;
     $scope.Marca=true;
     $scope.shwEscuela=false;
@@ -798,19 +840,22 @@ function DiseñadorExtranjero()
         $scope.expresion=true;
         var Seleccion=$scope.MiOcupacion.nombre;
         var Seleccion2=$scope.Mipais.descripcion;
+
         if(Seleccion=="Diseñador" && Seleccion2=="Mexico")
         {
+            $scope.Es=false;
             //alert(" Diseñador Mexicano"); 
-            Activar(); RedesSociales(); DatoRecidencial();
+            Activar(); RedesSociales(); DatoRecidencial(); LimpiarDatos();
         }       
        if(Seleccion=="Estudiante" && Seleccion2=="Mexico")
         {
             //alert(" Estudiante Mexicano"); 
             $scope.desModalidades=true;
             $scope.Curp=true;
+            $scope.Es=false;
             $scope.shwEscuela=true;
             $scope.Marca=false;    
-            RedesSociales(); DatoRecidencial();
+            RedesSociales(); DatoRecidencial(); LimpiarDatos();
         }
 
        if(Seleccion2!="Mexico")
