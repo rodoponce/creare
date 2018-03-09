@@ -843,9 +843,8 @@ function DiseñadorExtranjero()
 
         if(Seleccion=="Diseñador" && Seleccion2=="Mexico")
         {
-            $scope.Es=false;
             //alert(" Diseñador Mexicano"); 
-            Activar(); RedesSociales(); DatoRecidencial(); LimpiarDatos();
+            Activar(); RedesSociales(); DatoRecidencial();
         }       
        if(Seleccion=="Estudiante" && Seleccion2=="Mexico")
         {
@@ -854,21 +853,21 @@ function DiseñadorExtranjero()
             $scope.Curp=true;
             $scope.Es=false;
             $scope.shwEscuela=true;
-            $scope.Marca=false;    
-            RedesSociales(); DatoRecidencial(); LimpiarDatos();
+            $scope.Marca=false;   
+            RedesSociales(); DatoRecidencial();
         }
 
        if(Seleccion2!="Mexico")
         {
             if(Seleccion=="Estudiante")
             { 
-                EstudianteExtranjero();
+                EstudianteExtranjero(); LimpiarDatos();
                 //alert(" Estudiante Extranjero"); 
             }
             else
             {
               //alert(" Diseñador Extranjero"); 
-              DiseñadorExtranjero();
+              DiseñadorExtranjero(); LimpiarDatos();
             }
         }
     }
@@ -881,17 +880,29 @@ function DiseñadorExtranjero()
 
         if(Seleccion=="Diseñador" && Seleccion2=="Mexico")
         {
+            $scope.Es=false;
+            $scope.desNombre=true;
+            $scope.desApPaterno=true;
+            $scope.desApMaterno=true;
+            $scope.desFecha=true;
+            $scope.desGenero=true;
             //alert(" Diseñador Mexicano"); 
-            Activar(); RedesSociales(); DatoRecidencial();
+            Activar(); RedesSociales(); DatoRecidencial();  LimpiarDatos();
         }       
        if(Seleccion=="Estudiante" && Seleccion2=="Mexico")
         {
             //alert(" Estudiante Mexicano"); 
             $scope.desModalidades=true;
             $scope.Curp=true;
+            $scope.Es=false;
             $scope.shwEscuela=true;
-            $scope.Marca=false;    
-            RedesSociales(); DatoRecidencial();
+            $scope.Marca=false;   
+            $scope.desNombre=true;
+            $scope.desApPaterno=true;
+            $scope.desApMaterno=true;
+            $scope.desFecha=true;
+            $scope.desGenero=true;  
+            RedesSociales(); DatoRecidencial();  LimpiarDatos();
         }
 
        if(Seleccion2!="Mexico")
@@ -899,13 +910,13 @@ function DiseñadorExtranjero()
             if(Seleccion=="Estudiante")
             { 
                 $scope.shwEscuela=false;
-                EstudianteExtranjero();
+                EstudianteExtranjero(); LimpiarDatos();
                 //alert(" Estudiante Extranjero"); 
             }
             else
             {
-              //alert(" Diseñador Extranjero"); 
-              DiseñadorExtranjero();
+              //alert(" Diseñador Extranjero");
+              DiseñadorExtranjero(); LimpiarDatos();
             }
         }
     }
