@@ -397,7 +397,13 @@ function MainCtrl($http) {
         $scope.CEscuela=false;
         $scope.COtro=false;
         $scope.ODescripcion="";
+        $scope.NombreEscuela="";
     }
+
+    $scope.Pruebas=function(){
+
+    };
+
 
     $scope.VerficicarContestados=function(){
         if($scope.CFacebook==false && $scope.CTwitter==false && $scope.CConocido==false &&             $scope.CParticipante==false && $scope.CEscuela==false && $scope.COtro==false){
@@ -556,6 +562,7 @@ function MainCtrl($http) {
         $http.get('http://201.144.43.184/API.Core/Entidades/v1/GetEntidadCatalog')
         .success(function(Resultado){
             $scope.Estados=Resultado;
+            // $scope.Miestado.keyID="13";
         })
         .error(function(err){
             console.log(err);
@@ -666,6 +673,7 @@ $scope.registrarDatosforma = function () {
                                 reg_NombreMarca : $scope.marca,
                                 reg_RFC : $scope.campoRFC,
                                 reg_Institución : $scope.Miuniversidad.univ_ID,
+                                reg_UnivEscrita: $scope.NombreEscuela,
                                 reg_BolsoDama : $scope.DBolso,
                                 reg_BackpackCaballero : $scope.CBackpack,
                                 reg_PrendaDama : $scope.DPrendaVestir,
@@ -674,8 +682,8 @@ $scope.registrarDatosforma = function () {
                                 reg_CalzadoCaballero : $scope.CCalzado,
                                 reg_DiseñoMobiliario : $scope.DUMobiliario,
                                 reg_DiseñoAccesorio : $scope.DUAccesorio,
-                                ent_ID : $scope.Miestado.keyID,
-                                mun_ID : $scope.Mimunicipio.keyID,
+                                ent_ID : ($scope.Miestado == undefined ? 0 : $scope.Miestado.keyID),
+                                mun_ID :  ($scope.Mimunicipio== undefined ? 0 : $scope.Mimunicipio.keyID),
                                 reg_Calle : $scope.campoCalle,
                                 reg_Num : $scope.campoNumero,
                                 reg_Col : $scope.campoColonia,
@@ -728,6 +736,8 @@ $scope.registrarDatosforma = function () {
                 $scope.error = response.statusText;
         });
     }
+
+    
 }
 
   this.Modalidades=[
@@ -758,6 +768,8 @@ $scope.registrarDatosforma = function () {
       $scope.Escuela=true;$scope.otro=true;
       $scope.desModalidades=false;
       $scope.Escuela=false;
+      $scope.VistaEstado=false;
+      $scope.VistaMunicipio=false;
 
 function LimpiarDatos(){
         $scope.campoNombre="";
@@ -765,6 +777,7 @@ function LimpiarDatos(){
         $scope.campoApellidoMaterno="";
         $scope.campoSexo="";
         $scope.sampleDate="";
+        $scope.NombreEscuela="";
 };
 
 function Activar()
@@ -815,6 +828,8 @@ function EstudianteExtranjero()
     $scope.Escuela=false;$scope.otro=false;
     $scope.desModalidades=true;
     $scope.desFecha=false;
+    $scope.VistaEstado=false;
+    $scope.VistaMunicipio=false;
 }
 
 function DiseñadorExtranjero()
@@ -830,8 +845,10 @@ function DiseñadorExtranjero()
     $scope.desNo2=false;$scope.facebook=false;$scope.Twitter=false;
     $scope.Conocido=false;$scope.Participante=false;
     $scope.shwEscuela=false;$scope.Es=false;
-    ;$scope.otro=false;
+    $scope.otro=false;
     $scope.desModalidades=true;
+    $scope.VistaEstado=false;
+    $scope.VistaMunicipio=false;
 }
     $scope.patternNombre=/^[a-zA-Z]*$/;
 
@@ -845,6 +862,8 @@ function DiseñadorExtranjero()
         {
             //alert(" Diseñador Mexicano"); 
             Activar(); RedesSociales(); DatoRecidencial();
+            $scope.VistaEstado=true;
+            $scope.VistaMunicipio=true;
         }       
        if(Seleccion=="Estudiante" && Seleccion2=="Mexico")
         {
@@ -853,7 +872,9 @@ function DiseñadorExtranjero()
             $scope.Curp=true;
             $scope.Es=false;
             $scope.shwEscuela=true;
-            $scope.Marca=false;   
+            $scope.Marca=false;
+            $scope.VistaEstado=true;
+            $scope.VistaMunicipio=true; 
             RedesSociales(); DatoRecidencial();
         }
 
@@ -886,6 +907,8 @@ function DiseñadorExtranjero()
             $scope.desApMaterno=true;
             $scope.desFecha=true;
             $scope.desGenero=true;
+            $scope.VistaEstado=true;
+            $scope.VistaMunicipio=true;
             //alert(" Diseñador Mexicano"); 
             Activar(); RedesSociales(); DatoRecidencial();  LimpiarDatos();
         }       
@@ -902,6 +925,8 @@ function DiseñadorExtranjero()
             $scope.desApMaterno=true;
             $scope.desFecha=true;
             $scope.desGenero=true;  
+            $scope.VistaEstado=true;
+            $scope.VistaMunicipio=true;
             RedesSociales(); DatoRecidencial();  LimpiarDatos();
         }
 
@@ -925,6 +950,7 @@ function DiseñadorExtranjero()
           $http.get('http://201.144.43.184/API.Core/Municipios/v1/GetMunicipioByParentEntity/' + $scope.Miestado.keyID)
           .success(function(Resultado){
               $scope.Municipios=Resultado;
+             // $scope.Mimunicipio.keyID="13048";
           })
           .error(function(err){
               console.log(err);

@@ -73,9 +73,9 @@
                                 </label>
                                 <div>
                                       <div  class="col-sm-10">
-                                              <h3><small><strong>Nombre De La Instiucion </strong> </small></h3>
+                                              <h3><small><strong>Nombre De La Instiución </strong> </small></h3>
                                               <label for="exampleInputEmail2" class="sr-only">Nombre</label>
-                                               <input ng-click="disabled"  type="text" placeholder="" id="exampleInputEmail2"
+                                               <input ng-click="disabled" ng-model="NombreEscuela"  type="text" placeholder="" id="exampleInputEmail2"
                                              class="form-control">
                                              <h5 ><small ng-style="{color:'red'}"> * Ingrese el nombre</small> </h5>
                                        </div>
@@ -263,20 +263,21 @@
                                                              class="form-control">
                                                          </div>
 
-                                                      
-                                                         <h3><small><strong ng-init="ListaEstados()">Estado</strong> </small> </h3>
-                                                         <select ng-disabled="desEstado" ng-change="ListaMunicipios()"  ng-model="Miestado" class="form-control m-b" name="account" ng-options="Estado as Estado.nombre for Estado in Estados track by Estado.keyID">
-                                                                 <option value=""> <strong > --Seleccione su Estado-- </strong> </option>
-                                                             </select>
-                                                             <h5 ><small  ng-show="errorEstado" ng-style="{color:'red'}"> * Por favor Seleccione un  Estado</small> </h5>
-                                                             <h3><small><strong>Municipio</strong> </small> </h3>
-                                                             <select ng-disabled="desMunicipio" ng-model="Mimunicipio"  ng-options="Municipio as Municipio.nombre for Municipio in Municipios track by Municipio.keyID"class="form-control m-b" name="account">
-                                                                     <option value="">--Seleccione Municipio--</option>
-                                                                    
-                                                                 </select>
-
-                                                                 <h5 ><small ng-show="errorMunicipio" ng-style="{color:'red'}"> * Por favor Seleccione un  Municipio</small> </h5>
-
+                                                            <div ng-show="VistaEstado" ng-init="ListaEstados()">
+                                                                <h3><small><strong >Estado</strong> </small> </h3>
+                                                                <select ng-disabled="desEstado" ng-change="ListaMunicipios()"  ng-model="Miestado" class="form-control m-b" name="account" ng-options="Estado as Estado.nombre for Estado in Estados track by Estado.keyID">
+                                                                    <option value=""> <strong > --Seleccione su Estado-- </strong> </option>
+                                                                </select>
+                                                                <h5 ><small  ng-show="errorEstado" ng-style="{color:'red'}"> * Por favor Seleccione un  Estado</small> </h5>
+                                                            </div>
+                                                            
+                                                            <div ng-show="VistaMunicipio">
+                                                            <h3><small><strong>Municipio</strong> </small> </h3>
+                                                            <select ng-disabled="desMunicipio" ng-model="Mimunicipio"  ng-options="Municipio as Municipio.nombre for Municipio in Municipios track by Municipio.keyID" class="form-control m-b" name="account">
+                                                                <option value="">--Seleccione Municipio--</option>
+                                                            </select>
+                                                            <h5 ><small ng-show="errorMunicipio" ng-style="{color:'red'}"> * Por favor Seleccione un  Municipio</small> </h5>
+                                                            </div>
                                                     </div>
                                                 </div>
                                         </div> 
@@ -369,7 +370,7 @@
                     <button  class="btn btn-primary dim btn-block btn-outline" ng-click="registrarDatosforma()"><i class="fa fa-edit"></i>Registrar</button>
                 </div>
             </div>
-      <!--  <button class="btn btn-primary" ng-click="regisTrardato()" ><i class="fa fa-edit"></i> Registrar</button>-->
+       <button class="btn btn-primary" ng-click="Pruebas()" ><i class="fa fa-edit"></i> Pruebas</button>
     </div>  
 </div>
 <!-- -->
