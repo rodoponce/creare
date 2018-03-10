@@ -536,7 +536,7 @@ function MainCtrl($http) {
   //Llenado de los ComboBox con informacion de la base de datos
 
   $scope.ListaUniversidades= function(){
-    $http.get('http://localhost/API.CREARE/Universidades/v1/GetUniversidadesCatalog')
+    $http.get('http://201.144.43.184/API.CREARE/Universidades/v1/GetUniversidadesCatalog')
       .success(function(Resultado){
           $scope.Universidades=Resultado;
       })
@@ -628,7 +628,7 @@ $scope.Checkcorreo = function ()
 }
 
 $scope.registrarDatosforma = function () {
-
+    
     //Verificar que el Correo este escrito correctamente con el correo de verificación
     if($scope.campoCorreo!= $scope.campoCorreoVerificacion){
 
@@ -639,14 +639,13 @@ $scope.registrarDatosforma = function () {
     //Una vez revisado esto, se procede a averiguar si no hay un registro previo usando la CURP y/o Correo como medios de verificacion
     else{
         $http({
-            url: "http://localhost/API.CREARE/Registro/v1/VerificarExistencia",
+            url: "http://201.144.43.184/API.CREARE/Registro/v1/VerificarExistencia",
             method: "POST",
             data: {
                 reg_CURP : $scope.ClaveCURP,
                 reg_Mail : $scope.campoCorreo
             },
         }).then(function successCallback(response) {
-
             //Si los datos no existen, se Agregarán a la DB
             if(response.data!=1){
 
@@ -665,7 +664,7 @@ $scope.registrarDatosforma = function () {
                     if (isConfirm) {
 
                         $http({
-                            url: "http://localhost/API.CREARE/Registro/v1/AddRegistro",
+                            url: "http://201.144.43.184/API.CREARE/Registro/v1/AddRegistro",
                             method: "POST",
                             data: {
                                 pai_Id: $scope.Mipais.keyID,
@@ -708,12 +707,13 @@ $scope.registrarDatosforma = function () {
                                 reg_InfoMesModa : $scope.btnModa
                             },
                         }).then(function successCallback(response) {
-                        
-                                $http.get('http://localhost/API.CREARE/Registro/v1/EnviarCorreo/' + response.data)
+
+                                $http.get('http://201.144.43.184/API.CREARE/Registro/v1/EnviarCorreo/' + response.data)
                                   .success(function(Resultado){
                                     SweetAlert.swal("Registrado!", "Tus datos han sido guardados, en un momento recibirás un correo de confirmación", "success");
                                   })
                                   .error(function(err){
+                                      console.log(err);
                                     SweetAlert.swal("Error", "Por el momento el sistema no esta disponible, intente más tarde", "error");
                                   });
 

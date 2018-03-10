@@ -59,7 +59,7 @@
                                                <h5 ><small ng-show="errorMarca" ng-style="{color:'red'}"> * Por favor Ingrese Nombre de la Marca </small> </h5>
                                               <h3><small><strong>  RFC</strong> </small></h3>
                                               <label for="exampleInputEmail2" class="sr-only"><small></small></label>
-                                               <input type="text" placeholder="" ng-model="RFC"
+                                               <input type="text" placeholder="" ng-model="RFC" data-mask="aaaa999999   "
                                              class="form-control">
                                              <h5 ><small ng-show="errorRFC" ng-style="{color:'red'}"> * Por favor Revice su RFC </small> </h5>
                                        </div>
@@ -258,7 +258,7 @@
 
                                                          <h3><small><strong>Telefono</strong> </small> </h3>
                                                           <div class="input-group m-b"><span class="input-group-addon"> <img alt="image" width="20" height="20" src="img/tel.jpg"/> </span> 
-                                                            <input data-mask="(999) 999-99-99"  ng-model="campoTelefono" type="text" ng-disabled="desCodigop" 
+                                                            <input data-mask=" +(999) (999) 999-99-99"  ng-model="campoTelefono" type="text" ng-disabled="desCodigop" 
                                                              placeholder=""
                                                              class="form-control">
                                                          </div>
