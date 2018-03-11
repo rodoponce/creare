@@ -670,21 +670,29 @@ function ValidarCampos() {
         if($scope.Miuniversidad==""){
             Terminado=false;
             Mensaje+=" Universidad\n "
+        }else{
+            Terminado=true;
         }
 
         if($scope.ClaveCURP==undefined){
             Terminado=false;
             Mensaje+=" CURP\n "
+        }else{
+            Terminado=true;
         }
 
         if($scope.Miestado == undefined){
             Terminado=false;
             Mensaje+=" Estado\n "
+        }else{
+            Terminado=true;
         }
 
         if($scope.Mimunicipio== undefined ){
             Terminado=false;
             Mensaje+=" Municipio\n "
+        }else{
+            Terminado=true;
         }
 
     }
@@ -701,17 +709,22 @@ function ValidarCampos() {
             $scope.DUMobiliario==false){
             Terminado=false;
             Mensaje+= "Modalidad\n ";
+        }else{
+            Terminado=true;
         }
 
         if($scope.CFacebook==false && $scope.CTwitter==false && $scope.CConocido==false &&             $scope.CParticipante==false && $scope.CEscuela==false && $scope.COtro==false){
             Terminado=false;
             Mensaje+="¿Cómo te enteraste?\n";
+        }else{
+            Terminado=true;
         }
 
         if($scope.IcSI==false && $scope.IcNO==false && $scope.ImmSi==false && $scope.ImmNo==false){
-            console.log("INFORMACION")
             Terminado=false;
             Mensaje+= "Información \n"
+        }else{
+            Terminado=true;
         }
 
         // if($scope.MiOcupacion==undefined){
@@ -722,35 +735,44 @@ function ValidarCampos() {
         if($scope.campoCorreo=="" || $scope.campoCorreo==undefined){
             Terminado=false;
             Mensaje+=" Correo\n "
+        }else{
+            Terminado=true;
         }
 
         if($scope.campoCorreoVerificacion=="" && $scope.campoCorreoVerificacion==undefined ){
             Terminado=false;
             Mensaje+=" Verificación de correo\n "
+        }else{
+            Terminado=true;
         }
 
         if($scope.campoCalle==undefined || $scope.campoCalle==""){
             Terminado=false;
             Mensaje+=" Calle\n "
+        }else{
+            Terminado=true;
         }
 
         if($scope.campoNumero==undefined || $scope.campoNumero==""){
             Terminado=false;
             Mensaje+=" Número\n "
+        }else{
+            Terminado=true;
         }
 
         if($scope.campoColonia==undefined || $scope.campoColonia==""){
             Terminado=false;
             Mensaje+=" Colonia\n "
+        }else{
+            Terminado=true;
         }
 
         if($scope.campoTelefono==undefined || $scope.campoTelefono==""){
             Terminado=false;
             Mensaje+=" Teléfono\n "
+        }else{
+            Terminado=true;
         }
-
-
-    
 
         //DISEÑADOR MEXICANO
         if(Nacionalidad=="Mexico" && Tipo=="Diseñador"){
@@ -758,21 +780,29 @@ function ValidarCampos() {
         if($scope.campoRFC==undefined || $scope.campoRFC==""){
             Terminado=false;
             Mensaje+=" RFC\n "
+        }else{
+            Terminado=true;
         }
 
         if($scope.marca==undefined || $scope.marca==""){
             Terminado=false;
             Mensaje+=" Marca\n "
+        }else{
+            Terminado=true;
         }
 
         if($scope.Miestado == undefined){
             Terminado=false;
             Mensaje+=" Estado\n "
+        }else{
+            Terminado=true;
         }
 
         if($scope.Mimunicipio== undefined ){
             Terminado=false;
             Mensaje+=" Municipio\n "
+        }else{
+            Terminado=true;
         }
     }
         //ESTUDIANTE EXTRANJERO
@@ -781,26 +811,36 @@ function ValidarCampos() {
         if($scope.campoNombre==undefined || $scope.campoNombre==""){
             Terminado=false;
             Mensaje+=" Nombre\n "
+        }else{
+            Terminado=true;
         }
 
         if($scope.campoApellidoPaterno==undefined || $scope.campoApellidoPaterno==""){
             Terminado=false;
             Mensaje+=" Apellido paterno\n "
+        }else{
+            Terminado=true;
         }
 
         if($scope.sampleDate==undefined || $scope.sampleDate==""){
             Terminado=false;
             Mensaje+=" Fecha\n "
+        }else{
+            Terminado=true;
         }
 
         if($scope.campoSexo==""){
             Terminado=false;
             Mensaje+=" Género\n "
+        }else{
+            Terminado=true;
         }
 
         if($scope.NombreEscuela==undefined || $scope.NombreEscuela==""){
             Terminado=false;
             Mensaje+=" Escuela\n ";
+        }else{
+            Terminado=true;
         }
     }
 
@@ -808,30 +848,43 @@ function ValidarCampos() {
             if($scope.campoNombre==undefined || $scope.campoNombre==""){
                 Terminado=false;
                 Mensaje+=" Nombre\n "
+            }else{
+                Terminado=true;
             }
         
             if($scope.campoApellidoPaterno==undefined || $scope.campoApellidoPaterno==""){
                 Terminado=false;
                 Mensaje+=" Apellido paterno\n "
+            }else{
+                Terminado=true;
             }
         
             if($scope.sampleDate==undefined || $scope.sampleDate==""){
                 Terminado=false;
                 Mensaje+=" Fecha\n "
+            }else{
+                Terminado=true;
             }
         
             if($scope.campoSexo==""){
                 Terminado=false;
                 Mensaje+=" Género\n "
+            }else{
+                Terminado=true;
             }
+
             if($scope.campoRFC==undefined || $scope.campoRFC==""){
                 Terminado=false;
                 Mensaje+=" RFC\n "
+            }else{
+            Terminado=true;
             }
         
             if($scope.marca==undefined || $scope.marca==""){
                 Terminado=false;
                 Mensaje+=" Marca\n "
+            }else{
+                Terminado=true;
             }
         }
     }   
@@ -839,7 +892,7 @@ function ValidarCampos() {
 };
 
 $scope.registrarDatosforma = function () {
-
+    
     ValidarCampos();
 
     if(Terminado==true){
@@ -882,11 +935,11 @@ $scope.registrarDatosforma = function () {
                             method: "POST",
                             data: {
                                 pai_Id: $scope.Mipais.keyID,
-                                reg_Tipo : $scope.MiOcupacion.Id_Ocupacion,
+                                reg_Tipo : ($scope.MiOcupacion.Id_Ocupacion=="1"? true : false),
                                 reg_NombreMarca : $scope.marca,
                                 reg_RFC : $scope.campoRFC,
                                 reg_Institución : $scope.Miuniversidad.univ_ID,
-                                reg_UnivEscrita: $scope.NombreEscuela,
+                                reg_UnivEscrita: ($scope.MiOcupacion.Id_Ocupacion=="0" && $scope.Mipais.keyID!="700" ? $scope.NombreEscuela : $scope.Miuniversidad.univ_Nombre),
                                 reg_BolsoDama : $scope.DBolso,
                                 reg_BackpackCaballero : $scope.CBackpack,
                                 reg_PrendaDama : $scope.DPrendaVestir,
@@ -931,6 +984,7 @@ $scope.registrarDatosforma = function () {
                                     SweetAlert.swal("Error", "Por el momento el sistema no esta disponible, intente más tarde", "error");
                                   });
 
+                                  window.location.href = "Registrado.html";
                             console.log(response.data);
         
                             },function errorCallback(response) {
