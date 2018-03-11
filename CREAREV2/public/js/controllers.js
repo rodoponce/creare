@@ -400,11 +400,6 @@ function MainCtrl($http) {
         $scope.NombreEscuela="";
     }
 
-    $scope.Pruebas=function(){
-
-    };
-
-
     $scope.VerficicarContestados=function(){
         if($scope.CFacebook==false && $scope.CTwitter==false && $scope.CConocido==false &&             $scope.CParticipante==false && $scope.CEscuela==false && $scope.COtro==false){
             $scope.errorEnterado=true;
@@ -573,6 +568,8 @@ function MainCtrl($http) {
         if($scope.ClaveCURP=="")
         {
                 $scope.ErrorCurp=true;
+                Terminado=false;
+                Mensaje+=" CURP\n ";
         }
         else
         {
@@ -588,12 +585,18 @@ function MainCtrl($http) {
             }
             else{
                 $scope.ErrorCurp=true;
+                Terminado=false;
+                Mensaje+=" CURP\n ";
                 SweetAlert.swal("No se localizaron datos para la CURP dada", "Verifica tu información", "error");
+                LimpiarDatos();
             }
              
           })
           .error(function(err){
             SweetAlert.swal("Espere un momento", "Sistema no disponible, intente nuevamente", "error");
+            Terminado=false;
+            Mensaje+=" CURP\n ";
+            LimpiarDatos();
             $scope.ErrorCurp=true;
           });
         }
@@ -627,8 +630,219 @@ $scope.Checkcorreo = function ()
 
 }
 
-$scope.registrarDatosforma = function () {
+
+var Terminado=true;
+var Mensaje="Faltan los datos de: ";
+
+function ValidarCampos() {
+
+        if($scope.MiOcupacion==undefined){
+            Terminado=false;
+            Mensaje+=" Ocupación"
+        }else{
+            
+            Mensaje="Faltan los datos de:\n ";
+
+            var Nacionalidad= $scope.Mipais.descripcion;
+            var Tipo = $scope.MiOcupacion.nombre;
+
+            $http.get('http://201.144.43.183/API.RENAPO/Renapo/v1/GetRenapo/' + $scope.ClaveCURP)
+            .success(function(Resultado){
+              if (Resultado.statusOper=='EXITOSO'){
+
+              }
+              else{
+                  Terminado=false;
+                  Mensaje+=" CURP\n ";
+                  LimpiarDatos();
+              }
+               
+            })
+            .error(function(err){
+              Terminado=false;
+              Mensaje+=" CURP\n ";
+              LimpiarDatos();
+            });
+
+        //ESTUDIANTE MEXICANO
+        if(Nacionalidad=="Mexico" && Tipo=="Estudiante"){
+
+        if($scope.Miuniversidad==""){
+            Terminado=false;
+            Mensaje+=" Universidad\n "
+        }
+
+        if($scope.ClaveCURP==undefined){
+            Terminado=false;
+            Mensaje+=" CURP\n "
+        }
+
+        if($scope.Miestado == undefined){
+            Terminado=false;
+            Mensaje+=" Estado\n "
+        }
+
+        if($scope.Mimunicipio== undefined ){
+            Terminado=false;
+            Mensaje+=" Municipio\n "
+        }
+
+    }
+            //GENERALES
+        if($scope.DUAccesorio==false && 
+            $scope.DUMobiliario==false && 
+            $scope.DPrendaVestir==false &&
+            $scope.DCalzado==false &&
+            $scope.DBolso==false &&
+            $scope.CPrendaVestir==false &&
+            $scope.CCalzado==false && 
+            $scope.CBackpack==false &&
+            $scope.DUAccesorio==false&&
+            $scope.DUMobiliario==false){
+            Terminado=false;
+            Mensaje+= "Modalidad\n ";
+        }
+
+        if($scope.CFacebook==false && $scope.CTwitter==false && $scope.CConocido==false &&             $scope.CParticipante==false && $scope.CEscuela==false && $scope.COtro==false){
+            Terminado=false;
+            Mensaje+="¿Cómo te enteraste?\n";
+        }
+
+        if($scope.IcSI==false && $scope.IcNO==false && $scope.ImmSi==false && $scope.ImmNo==false){
+            console.log("INFORMACION")
+            Terminado=false;
+            Mensaje+= "Información \n"
+        }
+
+        // if($scope.MiOcupacion==undefined){
+        //     Terminado=false;
+        //     Mensaje+=" Ocupación\n ";
+        // }
+        
+        if($scope.campoCorreo=="" || $scope.campoCorreo==undefined){
+            Terminado=false;
+            Mensaje+=" Correo\n "
+        }
+
+        if($scope.campoCorreoVerificacion=="" && $scope.campoCorreoVerificacion==undefined ){
+            Terminado=false;
+            Mensaje+=" Verificación de correo\n "
+        }
+
+        if($scope.campoCalle==undefined || $scope.campoCalle==""){
+            Terminado=false;
+            Mensaje+=" Calle\n "
+        }
+
+        if($scope.campoNumero==undefined || $scope.campoNumero==""){
+            Terminado=false;
+            Mensaje+=" Número\n "
+        }
+
+        if($scope.campoColonia==undefined || $scope.campoColonia==""){
+            Terminado=false;
+            Mensaje+=" Colonia\n "
+        }
+
+        if($scope.campoTelefono==undefined || $scope.campoTelefono==""){
+            Terminado=false;
+            Mensaje+=" Teléfono\n "
+        }
+
+
     
+
+        //DISEÑADOR MEXICANO
+        if(Nacionalidad=="Mexico" && Tipo=="Diseñador"){
+
+        if($scope.campoRFC==undefined || $scope.campoRFC==""){
+            Terminado=false;
+            Mensaje+=" RFC\n "
+        }
+
+        if($scope.marca==undefined || $scope.marca==""){
+            Terminado=false;
+            Mensaje+=" Marca\n "
+        }
+
+        if($scope.Miestado == undefined){
+            Terminado=false;
+            Mensaje+=" Estado\n "
+        }
+
+        if($scope.Mimunicipio== undefined ){
+            Terminado=false;
+            Mensaje+=" Municipio\n "
+        }
+    }
+        //ESTUDIANTE EXTRANJERO
+        if(Tipo=="Estudiante" && Nacionalidad!="Mexico"){
+
+        if($scope.campoNombre==undefined || $scope.campoNombre==""){
+            Terminado=false;
+            Mensaje+=" Nombre\n "
+        }
+
+        if($scope.campoApellidoPaterno==undefined || $scope.campoApellidoPaterno==""){
+            Terminado=false;
+            Mensaje+=" Apellido paterno\n "
+        }
+
+        if($scope.sampleDate==undefined || $scope.sampleDate==""){
+            Terminado=false;
+            Mensaje+=" Fecha\n "
+        }
+
+        if($scope.campoSexo==""){
+            Terminado=false;
+            Mensaje+=" Género\n "
+        }
+
+        if($scope.NombreEscuela==undefined || $scope.NombreEscuela==""){
+            Terminado=false;
+            Mensaje+=" Escuela\n ";
+        }
+    }
+
+        if(Tipo!="Estudiante" && Nacionalidad!="Mexico"){
+            if($scope.campoNombre==undefined || $scope.campoNombre==""){
+                Terminado=false;
+                Mensaje+=" Nombre\n "
+            }
+        
+            if($scope.campoApellidoPaterno==undefined || $scope.campoApellidoPaterno==""){
+                Terminado=false;
+                Mensaje+=" Apellido paterno\n "
+            }
+        
+            if($scope.sampleDate==undefined || $scope.sampleDate==""){
+                Terminado=false;
+                Mensaje+=" Fecha\n "
+            }
+        
+            if($scope.campoSexo==""){
+                Terminado=false;
+                Mensaje+=" Género\n "
+            }
+            if($scope.campoRFC==undefined || $scope.campoRFC==""){
+                Terminado=false;
+                Mensaje+=" RFC\n "
+            }
+        
+            if($scope.marca==undefined || $scope.marca==""){
+                Terminado=false;
+                Mensaje+=" Marca\n "
+            }
+        }
+    }   
+
+};
+
+$scope.registrarDatosforma = function () {
+
+    ValidarCampos();
+
+    if(Terminado==true){
     //Verificar que el Correo este escrito correctamente con el correo de verificación
     if($scope.campoCorreo!= $scope.campoCorreoVerificacion){
 
@@ -737,6 +951,10 @@ $scope.registrarDatosforma = function () {
         });
     }
 
+    }
+    else{
+        SweetAlert.swal("Falta información", Mensaje, "warning")
+    }
     
 }
 
@@ -778,6 +996,7 @@ function LimpiarDatos(){
         $scope.campoSexo="";
         $scope.sampleDate="";
         $scope.NombreEscuela="";
+        $scope.ClaveCURP="";
 };
 
 function Activar()
