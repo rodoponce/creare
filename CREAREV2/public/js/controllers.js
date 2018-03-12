@@ -354,7 +354,6 @@ function MainCtrl($http) {
  {
   var CREARE=this;
 
-
     $scope.Constructor= function(){
 
         //Campos que necesitan ser Revisados
@@ -473,47 +472,6 @@ function MainCtrl($http) {
         }
     };
 
-    $scope.MostrarIC= function(){
-        
-        if ($scope.IcSI==true) {
-
-            $scope.ICNOVisible=true;
-            $scope.errorInformacion=false;
-        }else{
-            if ($scope.IcNO==true) {
-
-                $scope.ICVisible=true;
-                $scope.errorInformacion=false;
-            }
-            else{
-                SweetAlert.swal("Falta información", "Seleccione uno de los campos", "info");
-                $scope.errorInformacion=true;
-                $scope.ICNOVisible=false;
-                $scope.ICVisible=false;
-            }
-        }
-    };
-
-    $scope.MostrarIMM= function(){
-        
-        if ($scope.ImmSi==true) {
-
-            $scope.IMMNOVisible=true;
-            $scope.errorInformacion=false;
-        }else{
-            if ($scope.ImmNo==true) {
-
-                $scope.IMMVisible=true;
-                $scope.errorInformacion=false;
-            }
-            else{
-                SweetAlert.swal("Falta información", "Seleccione uno de los campos", "info");
-                $scope.errorInformacion=true;
-                $scope.IMMNOVisible=false;
-                $scope.IMMVisible=false;
-            }
-        }
-    };
 
     $scope.MostrarOtro= function(){
         if($scope.CFacebook==false && $scope.CTwitter==false && $scope.CConocido==false &&             $scope.CParticipante==false && $scope.CEscuela==false && $scope.COtro==false){
@@ -646,23 +604,23 @@ function ValidarCampos() {
             var Nacionalidad= $scope.Mipais.descripcion;
             var Tipo = $scope.MiOcupacion.nombre;
 
-            $http.get('http://201.144.43.183/API.RENAPO/Renapo/v1/GetRenapo/' + $scope.ClaveCURP)
-            .success(function(Resultado){
-              if (Resultado.statusOper=='EXITOSO'){
+            // $http.get('http://201.144.43.183/API.RENAPO/Renapo/v1/GetRenapo/' + $scope.ClaveCURP)
+            // .success(function(Resultado){
+            //   if (Resultado.statusOper=='EXITOSO'){
 
-              }
-              else{
-                  Terminado=false;
-                  Mensaje+=" CURP\n ";
-                  LimpiarDatos();
-              }
+            //   }
+            //   else{
+            //       Terminado=false;
+            //       Mensaje+=" CURP\n ";
+            //       LimpiarDatos();
+            //   }
                
-            })
-            .error(function(err){
-              Terminado=false;
-              Mensaje+=" CURP\n ";
-              LimpiarDatos();
-            });
+            // })
+            // .error(function(err){
+            //   Terminado=false;
+            //   Mensaje+=" CURP\n ";
+            //   LimpiarDatos();
+            // });
 
         //ESTUDIANTE MEXICANO
         if(Nacionalidad=="Mexico" && Tipo=="Estudiante"){
@@ -674,7 +632,7 @@ function ValidarCampos() {
             Terminado=true;
         }
 
-        if($scope.ClaveCURP==undefined){
+        if($scope.ClaveCURP==undefined ||$scope.ClaveCURP==""){
             Terminado=false;
             Mensaje+=" CURP\n "
         }else{
@@ -776,6 +734,13 @@ function ValidarCampos() {
 
         //DISEÑADOR MEXICANO
         if(Nacionalidad=="Mexico" && Tipo=="Diseñador"){
+
+        if($scope.ClaveCURP==undefined ||$scope.ClaveCURP==""){
+            Terminado=false;
+            Mensaje+=" CURP\n "
+        }else{
+            Terminado=true;
+        }
 
         if($scope.campoRFC==undefined || $scope.campoRFC==""){
             Terminado=false;
@@ -891,12 +856,12 @@ function ValidarCampos() {
 
 };
 
-$scope.Prueba= function(){
-    console.log($scope.campoTelefono);
-}
-
 $scope.registrarDatosforma = function () {
-    
+
+    if($scope.ClaveCURP==""||$scope.ClaveCURP==undefined){
+        Terminado=false;
+        Mensaje+="CURP\n";
+    }
     ValidarCampos();
 
     if(Terminado==true){
@@ -974,8 +939,8 @@ $scope.registrarDatosforma = function () {
                                 reg_Escuela : $scope.CEscuela,
                                 reg_Otro : $scope.COtro,
                                 reg_OtroDescripcion : $scope.ODescripcion,
-                                reg_InfoCREARE : $scope.btnCREARE,
-                                reg_InfoMesModa : $scope.btnModa
+                                reg_InfoCREARE : ($scope.Ic==true?true:false),
+                                reg_InfoMesModa : ($scope.Imm==true?true:false) 
                             },
                         }).then(function successCallback(response) {
 

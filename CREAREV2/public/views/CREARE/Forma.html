@@ -59,7 +59,7 @@
                                                <h5 ><small ng-show="errorMarca" ng-style="{color:'red'}"> * Por favor Ingrese Nombre de la Marca </small> </h5>
                                               <h3><small><strong>  RFC</strong> </small></h3>
                                               <label for="exampleInputEmail2" class="sr-only"><small></small></label>
-                                               <input type="text" placeholder="" ng-model="RFC" data-mask="aaaa999999   "
+                                               <input type="text" placeholder="" ng-model="RFC" ng-maxlength="13" ng-minlength="11"
                                              class="form-control">
                                              <h5 ><small ng-show="errorRFC" ng-style="{color:'red'}"> * Por favor Revice su RFC </small> </h5>
                                        </div>
@@ -178,7 +178,7 @@
                     <div  class="form-group" id="data_1">
                             <label class="font-normal"> Fecha de cumpleaños </label>
                             <div class="input-group date">
-                                <input data-mask="99/99/9999" ng-disabled="desFecha"  type="datetime" class="form-control" date-time ng-model="sampleDate" view="date" auto-close="true" min-view="date" format="YYYY-MM-DD">
+                                <input data-mask="99/99/9999" ng-disabled="desFecha"  type="datetime" class="form-control" date-time ng-model="sampleDate" view="date" auto-close="true" min-view="date" format="DD-MM-YYYY">
                                 <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>
                         </div>  <h5 ><small ng-show="errorFecha" ng-style="{color:'red'}"> * Por favor Ingrese su fecha de nacimiento</small> </h5>
@@ -292,27 +292,27 @@
         <br>
         <br>
         <div>
-            <label><input icheck type="checkbox" name="radioTest" nf-disabled="facebook" ng-model="CFacebook" ng-change="VerficicarContestados()">&nbsp;<i class="fa fa-facebook-square"></i>&nbsp;     Facebook</label>
+            <label><input icheck type="checkbox" name="chkDato" nf-disabled="facebook" ng-model="CFacebook" ng-change="VerficicarContestados()">&nbsp;<i class="fa fa-facebook-square"></i>&nbsp;     Facebook</label>
         </div>
         
         <div>
-            <label><input icheck type="checkbox" name="radioTest" nf-disabled="Twitter" ng-model="CTwitter" ng-change="VerficicarContestados()">&nbsp;<i class="fa fa-twitter-square"></i>&nbsp;     Twitter</label>
+            <label><input icheck type="checkbox" name="chkDato" nf-disabled="Twitter" ng-model="CTwitter" ng-change="VerficicarContestados()">&nbsp;<i class="fa fa-twitter-square"></i>&nbsp;     Twitter</label>
         </div>
 
         <div>
-            <label><input icheck type="checkbox" name="radioTest" nf-disabled="Conocido" ng-model="CConocido" ng-change="VerficicarContestados()">&nbsp;<i class="fa fa-handshake-o"></i>&nbsp;     Conocido</label>
+            <label><input icheck type="checkbox" name="chkDato" nf-disabled="Conocido" ng-model="CConocido" ng-change="VerficicarContestados()">&nbsp;<i class="fa fa-handshake-o"></i>&nbsp;     Conocido</label>
         </div>
 
         <div>
-            <label><input icheck type="checkbox" name="radioTest" nf-disabled="Participante" ng-model="CParticipante" ng-change="VerficicarContestados()">&nbsp;<i class="fa fa-user-circle-o"></i>&nbsp;     Participante</label>
+            <label><input icheck type="checkbox" name="chkDato" nf-disabled="Participante" ng-model="CParticipante" ng-change="VerficicarContestados()">&nbsp;<i class="fa fa-user-circle-o"></i>&nbsp;     Participante</label>
         </div>
 
         <div>
-            <label><input icheck type="checkbox" name="radioTest" nf-disabled="Escuela" ng-model="CEscuela" ng-change="VerficicarContestados()">&nbsp;<i class="fa fa-mortar-board"></i>&nbsp;     Escuela</label>
+            <label><input icheck type="checkbox" name="chkDato" nf-disabled="Escuela" ng-model="CEscuela" ng-change="VerficicarContestados()">&nbsp;<i class="fa fa-mortar-board"></i>&nbsp;     Escuela</label>
         </div>
         
         <div>
-            <label><input icheck type="checkbox" name="radioTest" nf-disabled="otro" ng-model="COtro" ng-change="MostrarOtro()">     Otro</label>
+            <label><input icheck type="checkbox" name="chkDato" nf-disabled="otro" ng-model="COtro" ng-change="MostrarOtro()">     Otro</label>
         </div> 
 
         <div  class="col-sm-10" ng-show="VistaOtro">
@@ -341,18 +341,21 @@
                   <br>
               <div class="btn-group">
                   
-                    <label><input icheck type="checkbox" ng-model="IcSI" ng-disabled="ICVisible" ng-change="MostrarIC()">&nbsp;<i class="fa fa-thumbs-o-up"></i>&nbsp;     SI </label>
-                
-                    <label><input icheck type="checkbox" ng-model="IcNO" ng-disabled="ICNOVisible" ng-change="MostrarIC()">&nbsp;<i class="fa fa-thumbs-o-down"></i>&nbsp;     NO </label>
+                    <label> <input icheck type="radio" name="radioC"
+                        ng-model="Ic" value="1">&nbsp;<i class="fa fa-thumbs-o-up"></i>&nbsp; Si </label>
+                    <label> <input icheck type="radio" name="radioC"
+                        ng-model="Ic" value="0">&nbsp;<i class="fa fa-thumbs-o-down"></i>&nbsp; No </label>
             
                 </div>
                 <div>
                     <br><label>  ¿Te Gustaria Recibir Informacion del Mes De La Moda?</label></div>
                     <br>
                     <div class="btn-group">
-                    <label> <input icheck type="checkbox" ng-model="ImmSi" ng-disabled="IMMVisible" ng-change="MostrarIMM()">&nbsp;<i class="fa  fa-thumbs-o-up"></i>&nbsp;    SI </label>
 
-                    <label><input icheck type="checkbox" ng-model="ImmNo" ng-disabled="IMMNOVisible" ng-change="MostrarIMM()">&nbsp;<i class="fa  fa-thumbs-o-down"></i>&nbsp;     NO </label>
+                            <label> <input icheck type="radio" name="radioTest"
+                                ng-model="Imm" value="1">&nbsp;<i class="fa fa-thumbs-o-up"></i>&nbsp; Si </label>
+                            <label> <input icheck type="radio" name="radioTest"
+                                ng-model="Imm" value="0">&nbsp;<i class="fa fa-thumbs-o-down"></i>&nbsp; No </label>
 
                     </div>
                 </div>
@@ -372,7 +375,6 @@
             <button ng-href="" class="btn btn-primary dim btn-block btn-outline" ng-click="registrarDatosforma()"><i class="fa fa-edit"></i>Registrar</button>
     </div>  
 </div>
-
 <!-- -->
 
 <script>
