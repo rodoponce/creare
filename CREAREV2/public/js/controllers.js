@@ -350,7 +350,7 @@ function MainCtrl($http) {
 };
 
 //Definicon de Controlador y lo declare en el final de esta pagina 
- function FormaCtrl($scope, SweetAlert, $http)
+ function FormaCtrl($scope, SweetAlert, $http, $window, $location)
  {
   var CREARE=this;
 
@@ -891,6 +891,10 @@ function ValidarCampos() {
 
 };
 
+$scope.Prueba= function(){
+    console.log($scope.campoTelefono);
+}
+
 $scope.registrarDatosforma = function () {
     
     ValidarCampos();
@@ -984,8 +988,9 @@ $scope.registrarDatosforma = function () {
                                     SweetAlert.swal("Error", "Por el momento el sistema no esta disponible, intente más tarde", "error");
                                   });
 
-                                  window.location.href = "Registrado.html";
-                            console.log(response.data);
+
+                                $location.path('/login_two_columns');
+                                  console.log(response.data);
         
                             },function errorCallback(response) {
                                 $scope.error = response.statusText;
