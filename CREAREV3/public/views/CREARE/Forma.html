@@ -1,0 +1,426 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="ibox-content p-xl">
+<!-- Encabezado -->
+               <div class="row">
+                     <h1>
+                     <strong> <img alt="image" width="200" height="120" src="img/Creare.jpg"/>Registro Creáre </strong>
+                     </h1>
+                     <div class="well m-t"><strong>Comentario</strong><p>{{Leyenda}}</p></div>        
+                </div>
+<!-- -->
+
+<!--  ComboBox Pais -->
+<div class="table-responsive m-t">
+    <div class="form-group " ><label class="col-sm-2 control-label"><h3>Pais</h3></label>
+           <div class="col-sm-10" ng-init="ListaPaises()">
+           <select  ng-model="Mipais" ng-change="SeleccionPais()" ng-init="ListaPaises()" class="form-control m-b" name="Pais"
+           ng-options="pais as pais.descripcion for pais in Paises track by pais.keyID">
+               <option>Mexico</option>
+           </select>
+       </div>
+   </div>
+   <br>
+   <div class="hr-line-dashed"></div>
+<!-- -->     
+
+<!-- ComboBox Ocupación-->
+<div class="form-group" ng-init="Constructor()"><label class="col-sm-2 control-label"><h3>Ocupación</h3></label>
+    <div class="col-sm-10">
+        <select ng-model="MiOcupacion"   ng-change="SleccionOcupacion()" ng-options="ocupacion as ocupacion.nombre for ocupacion in Ocupacion track by ocupacion.Id_Ocupacion" class="form-control m-b" name="account">
+            <option value=""> --Seleccione su ocupación-- </option>
+        </select> 
+        <h5 ><small ng-show="erroOcupacion" ng-style="{color:'red'}"> * Seleccione una Ocupación</small> </h5>
+   </div>
+   </div>
+  
+<!-- -->
+
+<!-- ComboBox <Escuelas-->
+    <div ng-show="shwEscuela" class="form-group"><label class="col-sm-2 control-label"><h3>Escuela</h3></label>
+        <div class="col-sm-10">
+        <select ng-model="Miuniversidad" ng-init="ListaUniversidades()" ng-change="moveEsc()"  ng-options="Universidad as Universidad.univ_Nombre for Universidad in Universidades track by Universidad.univ_ID" class="form-control m-b" name="account">
+            <option value=""> --Seleccione una Escuela-- </option>
+        </select>
+        <h5 ><small ng-show="erroComboEsc" ng-style="{color:'red'}"> * Seleccione una Escuela</small> </h5>
+    </div>
+   </div>
+<!-- -->
+
+<!-- Div Marca -->
+                                <div ng-show="Marca"  class="form-group"><label class="col-sm-2 control-label"> <h3>Marca</h3>  <br/>
+                                </label>
+                                      <div>
+                                       <div  class="col-sm-10">
+                                              <h3><small><strong>  Nombre Marca</strong> </small></h3>
+                                              <label for="exampleInputEmail2" class="sr-only">Nombre</label>
+                                               <input type="text" ng-model="marca" ng-pattern="patternNombre" class="form-control" ng-keypress="MoveMarca()">
+                                               <h5 ><small ng-show="errorMarca" ng-style="{color:'red'}"> * Por favor Ingrese Nombre de la Marca </small> </h5>
+                                              <h3><small><strong>  RFC</strong> </small></h3>
+                                              <label for="exampleInputEmail2" class="sr-only"><small></small></label>
+                                             <input type="text" ng-model="RFC" ng-maxlength="13" ng-minlength="11" ng-keypress="moveRFC()" class="form-control">
+                                             <h5 ><small ng-show="errorRFC" ng-style="{color:'red'}"> * Por favor Revice su RFC </small> </h5>
+                                       </div>
+                                    </div>
+                                </div>
+                                <br>
+<!-- -->
+<!-- Si es Estudiante Extarnjero Aparecera Para Capturar La Escuela -->
+                                <div ng-show="Es"  class="form-group"><label class="col-sm-2 control-label"> <h3>Escuela</h3> <small>   </small> <br/>
+                                </label>
+                                <div>
+                                      <div  class="col-sm-10">
+                                              <h3><small><strong>Nombre De La Instiución </strong> </small></h3>
+                                              <label for="exampleInputEmail2" class="sr-only">Nombre</label>
+                                               <input ng-click="disabled" ng-model="NombreEscuela"  type="text" placeholder="" id="exampleInputEmail2" ng-keypress="moveEscuela()"
+                                             class="form-control">
+                                             <h5 ><small ng-show="errorNEscuela" ng-style="{color:'red'}"> * Ingrese el nombre de la Institucion</small> </h5>
+                                       </div>
+                                    </div>
+                            </div>
+<!-- -->
+<br>
+<!--  Modalidades -->
+<div ng-show="desModalidades"  class="form-group"><label class="col-sm-2 control-label"> 
+    <br> <h3>Modalidades</h3>  <br/>
+    <h5 ><small ng-show="erroModalidad" ng-style="{color:'red'}"> *El rango es entre 5 y 1</small> </h5>
+           </label>                            
+            <div class="col-sm-10"> <br> <br><br>
+                    <!-- Categoria de Dama-->
+                    <h3>Dama</h3>
+                    <div>
+                        <input icheck type="checkbox" ng-model="DPrendaVestir" ng-disabled="DPrendaVestirVisible" class="checkbox-circle" ng-change="MostrarModa()">
+                        Prenda Vestir    
+                        <input icheck type="checkbox"  ng-model="DCalzado" ng-disabled="DCalzadoVisible" ng-change="MostrarModa()">
+                        Calzado  
+                        <input icheck type="checkbox" ng-model="DBolso" ng-disabled="DBolsoVisible" ng-change="MostrarModa()">
+                        Bolso                                               
+                    </div>
+                <!-- -->
+                <!-- Categoria Caballero-->
+                    <br>
+                    <h3>Caballero</h3>
+                    <div> 
+                        <input icheck type="checkbox" ng-model="CPrendaVestir" ng-disabled="CPrendaVestirVisible" ng-change="MostrarModa()">
+                        Prenda Vestir
+                        <input icheck type="checkbox"  ng-model="CCalzado" ng-disabled="CCalzadoVisible" ng-change="MostrarModa()">
+                        Calzado
+                        <input icheck type="checkbox"  ng-model="CBackpack" ng-disabled="CBackpackVisible" ng-change="MostrarModa()">
+                        BackPack
+                    </div>
+                <!-- -->    
+                    <br>
+                <!-- Diseño -->
+                    <h3>Diseño Utilitario y Arte</h3>
+                    <div> 
+                        <input icheck type="checkbox"  ng-model="DUAccesorio" ng-disabled="AccVisible" ng-change="MostrarDi()">
+                        Accesorio
+                        <input icheck type="checkbox" ng-model="DUMobiliario" ng-disabled="MobVisible" ng-change="MostrarDi()">
+                        Mobiliario
+                        </div>
+                    <br>
+                </div>
+                <!--  -->
+    </div>
+<!-- -- >
+    
+    
+<!-- Texbox Curp-->
+<div ng-show="Curp"  class="form-group"><label class="col-sm-2 control-label"> <h3>Curp</h3><h5  ng-show="ErrorCurp"><small ng-style="{color:'red'}"> * No Valido </small> </h5>  <br/> </label>
+    <div>
+        <div  class="col-sm-10">
+
+            <h3><small><strong> Ingrese su CURP</strong> </small></h3>
+            <input  data-mask="aaaa999999aaaaaa99"   ng-model="ClaveCURP" type="text" placeholder="" id="exampleInputEmail2" ng-maxlength="18" ng-minlength="18"
+            class="form-control">
+
+            <br>
+            <button class="btn btn-primary dim" ng-click="ConsultarCURP()" ><i class="fa fa-edit"></i> Validar CURP</button>
+        </div>   
+    </div>   
+</div>
+<br> 
+<!-- -->  
+
+
+<!-- Fomularios Datos Personales-->                        
+    <div class="form-group"><label class="col-sm-2 control-label"> <h3>Datos</h3> <h4> Personales  </h4> <br/> </label>
+    
+    <div>
+            <div class="col-sm-10">
+                   <!-- Campo Nombre-->
+                   <h3><small><strong>Nombre</strong> </small> </h3>
+                   <div class="input-group ">
+                   <span class="input-group-addon">
+                   <img alt="image" width="15" height="15" src="img/user.jpg"/>
+                   </span> 
+                   
+                   <input onkeypress="return soloLetras(event)" ng-keypress="moveName()"  ng-model="campoNombre" type="text" ng-disabled="desNombre"  class="form-control">
+
+                    </div>
+                    <h5 ><small ng-show="erroNombre" ng-style="{color:'red'}"> * Por favor Ingrese Nombre </small> </h5>
+                   
+                    <!-- Campo Apellido Paterno-->
+                    <h3><small><strong> Apellido Paterno </strong> </small></h3>
+                    <div class="input-group m-b"><span class="input-group-addon"><img alt="image" width="15" height="15" src="img/user.jpg"/></span> 
+                        <input onkeypress="return soloLetras(event)"  ng-keypress="moveApPaterno()"ng-disabled="desApPaterno"  ng-model="campoApellidoPaterno" type="text"
+                        placeholder=""
+                        class="form-control">
+                        </div>
+                        <h5 ><small ng-show="errorApellidoPaterno" ng-style="{color:'red'}"> * Por favor Ingrese Apellido Paterno </small> </h5>
+                    
+                        <!-- Campo Apellido Materno-->
+                   <h3><small><strong> Apellido Materno </strong> </small></h3>                                   
+                  <div class="input-group m-b"><span class="input-group-addon"><img alt="image" width="15" height="15" src="img/user.jpg"/></span> 
+                    <input onkeypress="return soloLetras(event)" ng-keypress="moveApMaterno()"  ng-model="campoApellidoMaterno" type="text" ng-disabled="desApMaterno"  class="form-control">
+                    </div>
+                    <h5 ><small ng-show="errorApellidoMaterno" ng-style="{color:'red'}"> * Por favor Ingrese Apellido Materno</small> </h5>
+                  
+                  
+                    <!-- Campo Fecha Cumpleaños-->
+                    <div  class="form-group" id="data_1">
+                            <label class="font-normal"> Fecha de cumpleaños <small>Formato : DD/MM/AAAA</small> </label>
+                            <div class="input-group date">
+                                <input data-mask="99/99/9999" ng-disabled="desFecha"  type="datetime" ng-keypress="moveDate()" class="form-control"  ng-model="sampleDate" view="date"  min-view="date" format="DD-MM-YYYY">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                        </div>  <h5 ><small ng-show="errorFecha" ng-style="{color:'red'}"> * Por favor Ingrese su fecha de nacimiento</small> </h5>
+                        
+
+
+
+                        <!-- Combobox Genero-->
+                        <h3><small><strong>Género</strong> </small> </h3>
+                        <div >
+                            <select ng-disabled="desGenero" ng-change="moveGender()" class="form-control m-b" name="genero" ng-model="campoSexo"> 
+                                <option value=""> --Selecciona Genero-- </option>    
+                                <option value= "H"> Hombre </option>
+                                <option value= "M"> Mujer </option>
+                            </select>
+                            <h5 ><small ng-show="errorGenero" ng-style="{color:'red'}"> * Seleccione Su Genero</small> </h5>
+                        </div>
+                            <!--  -->
+                        
+                        <!--Campo Email-->
+                  <h3><small><strong>Email</strong> </small> </h3>
+                  <div  onkeypress="" class="input-group m-b"><span class="input-group-addon"><img alt="image" width="15" height="15" src="img/Micon.jpg"/></span> 
+                    <input ng-model="campoCorreo" type="text" ng-disabled="Mail1"
+                    placeholder="Correo" ng-keypress="ValidarCorreo()" ng-keyup="Checkcorreo()"
+                    class="form-control">
+                    </div>
+                    <h5 ><small ng-show="errorCorreo" ng-style="{color:'red'}"> * Por favor Ingrese Correo</small> </h5>
+                        <!--Campo Email2   -->
+                 <h3><small><strong>Confirmar Email</strong> </small> </h3>
+                 <h5 ><small ng-show="errorNoCoinciden" ng-style="{color:'red'}"> * Correos No Coinciden</small> </h5>
+                 <div class="input-group m-b"><span class="input-group-addon"> <img alt="image" width="15" height="15" src="img/Micon.jpg"/> </span> 
+                    <input  ng-model="campoCorreoVerificacion" type="text" ng-disabled="Mail2" 
+                    placeholder="Mail" ng-keyup="Checkcorreo()"
+                    class="form-control">
+                </div>              
+                <h5 ><small ng-show="errorConfirmarCorreo" ng-style="{color:'red'}"> * Por favor Ingrese Verifique el  Correo</small> </h5>     
+                
+                
+            </div>
+
+            </div>
+    </div>
+<!-- -->
+
+<!-- Datos Residenciales-->
+                                    <div class="form-group"><label class="col-sm-2 control-label"> <h3>Datos</h3> <small> Residenciales  </small> <br/> </label>
+
+                                        <div>
+                                                <div class="col-sm-10">
+                                                    <h3><small><strong>Calle</strong> </small> </h3>
+                                                    <div class="input-group m-b"><span class="input-group-addon"> <img alt="image" width="20" height="20" src="img/Location.jpg"/> </span>
+                                                         <input   ng-model="campoCalle" type="text" ng-disabled="desCalle"  ng-keyup="moveCalle()"
+                                                       placeholder=""
+                                                       class="form-control">
+                                                   </div>
+                                                   <h5 ><small ng-show="erroCalle" ng-style="{color:'red'}"> * Por favor Ingrese Calle</small> </h5>
+
+
+                                                              <h3><small><strong>Número</strong> </small> </h3>
+                                                           <div class="input-group m-b"><span class="input-group-addon"> <img alt="image" width="20" height="20" src="img/Location.jpg"/> </span> 
+                                                            <input   ng-model="campoNumero" type="text" ng-disabled="descolonia"  ng-keypress="moveNumero()"
+                                                              placeholder=""
+                                                              class="form-control">
+                                                          </div>
+                                                          <h5 ><small ng-show="errorNumero" ng-style="{color:'red'}"> * Por favor Ingrese Número</small> </h5>
+                                                        
+
+                                                          <h3><small><strong>Colonia</strong> </small> </h3>
+                                                          <div class="input-group m-b"><span class="input-group-addon"> <img alt="image" width="20" height="20" src="img/Location.jpg"/> </span> 
+                                                           <input   ng-model="campoColonia" type="text" ng-disabled="descolonia"  ng-keypress="moveColonia()"
+                                                             placeholder=""
+                                                             class="form-control">
+                                                         </div>
+                                                         <h5 ><small ng-show="errorColonia"  ng-style="{color:'red'}"> * Por favor Ingrese Colonia</small> </h5>
+
+
+                                                         <h3><small><strong>Codigo Postal</strong> </small> </h3>
+                                                         <div class="input-group m-b"><span class="input-group-addon"> <img alt="image" width="20" height="20" src="img/Location.jpg"/> </span> 
+                                                           <input data-mask="99999"    ng-model="campoCodigopostal" type="text" ng-disabled="desCodigop" 
+                                                            placeholder=""
+                                                            class="form-control">
+                                                        </div>     
+                      
+
+                                                         <h3><small><strong>Telefono</strong> </small> </h3>
+                                                          <div class="input-group m-b"><span class="input-group-addon"> <img alt="image" width="20" height="20" src="img/tel.jpg"/> </span> 
+                                                            <input data-mask=" +(999) (999) 999-99-99"  ng-model="campoTelefono" type="text" ng-disabled="desCodigop" 
+                                                             placeholder=""
+                                                             class="form-control">
+                                                         </div>
+
+                                                            <div ng-show="VistaEstado" ng-init="ListaEstados()">
+                                                                <h3><small><strong >Estado</strong> </small> </h3>
+                                                                <select ng-disabled="desEstado" ng-change="ListaMunicipios()"  ng-model="Miestado" class="form-control m-b" name="account" ng-options="Estado as Estado.nombre for Estado in Estados track by Estado.keyID">
+                                                                    <option value=""> <strong > --Seleccione su Estado-- </strong> </option>
+                                                                </select>
+                                                                <h5 ><small  ng-show="errorEstado" ng-style="{color:'red'}"> * Por favor Seleccione un  Estado</small> </h5>
+                                                            </div>
+                                                            
+                                                            <div ng-show="VistaMunicipio">
+                                                            <h3><small><strong>Municipio</strong> </small> </h3>
+                                                            <select ng-disabled="desMunicipio" ng-model="Mimunicipio" ng-change="moveMunicipio()"  ng-options="Municipio as Municipio.nombre for Municipio in Municipios track by Municipio.keyID" class="form-control m-b" name="account">
+                                                                <option value="">--Seleccione Municipio--</option>
+                                                            </select>
+                                                            <h5 ><small ng-show="errorMunicipio" ng-style="{color:'red'}"> * Por favor Seleccione un  Municipio</small> </h5>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                        </div> 
+<!-- -->
+
+  <!--Como Te Enteraste--> 
+  <div class="form-group"><label class="col-sm-2 control-label">¿Como te enteraste?<br/>
+    <h5 ><small ng-show="errorEnterado" ng-style="{color:'red'}"> * Por Favor Responda</small> </h5>
+</label>
+                        
+    <div class="col-sm-10">
+        <br>
+        <br>
+        <div>
+            <label><input icheck type="checkbox" name="chkDato" nf-disabled="facebook" ng-model="CFacebook" ng-change="VerficicarContestados()">&nbsp;<i class="fa fa-facebook-square"></i>&nbsp;     Facebook</label>
+        </div>
+        
+        <div>
+            <label><input icheck type="checkbox" name="chkDato" nf-disabled="Twitter" ng-model="CTwitter" ng-change="VerficicarContestados()">&nbsp;<i class="fa fa-twitter-square"></i>&nbsp;     Twitter</label>
+        </div>
+
+        <div>
+            <label><input icheck type="checkbox" name="chkDato" nf-disabled="Conocido" ng-model="CConocido" ng-change="VerficicarContestados()">&nbsp;<i class="fa fa-handshake-o"></i>&nbsp;     Conocido</label>
+        </div>
+
+        <div>
+            <label><input icheck type="checkbox" name="chkDato" nf-disabled="Participante" ng-model="CParticipante" ng-change="VerficicarContestados()">&nbsp;<i class="fa fa-user-circle-o"></i>&nbsp;     Participante</label>
+        </div>
+
+        <div>
+            <label><input icheck type="checkbox" name="chkDato" nf-disabled="Escuela" ng-model="CEscuela" ng-change="VerficicarContestados()">&nbsp;<i class="fa fa-mortar-board"></i>&nbsp;     Escuela</label>
+        </div>
+        
+        <div>
+            <label><input icheck type="checkbox" name="chkDato" nf-disabled="otro" ng-model="COtro" ng-change="MostrarOtro()">     Otro</label>
+        </div> 
+
+        <div  class="col-sm-10" ng-show="VistaOtro">
+            <h3><small><strong> Ingrese su Descripcion</strong> </small></h3>
+            <input ng-model="ODescripcion" type="text" placeholder="" id="exampleInputEmail2" class="form-control">
+        </div><br><br>
+
+    </div>
+
+</div>       
+<!-- -->
+      
+<!-- Informacion -->
+
+    <div class="form-group">
+       
+            <br><label class="col-sm-2 control-label">Informacion <br/>
+                <h5 ><small ng-show="errorInformacion" ng-style="{color:'red'}"> * Por Favor Responda</small> </h5>
+            </label>
+
+              <div class="col-sm-10">
+               <div>
+                    <br>
+             <label> ¿Te Gustaria Recibir Informacion de CREARE? </label>
+                  </div>
+                  <br>
+              <div class="btn-group">
+                  
+                    <label> <input icheck type="radio" name="radioC"
+                        ng-model="Ic" value="1">&nbsp;<i class="fa fa-thumbs-o-up"></i>&nbsp; Si </label>
+                    <label> <input icheck type="radio" name="radioC"
+                        ng-model="Ic" value="0">&nbsp;<i class="fa fa-thumbs-o-down"></i>&nbsp; No </label>
+            
+                </div>
+                <div>
+                    <br><label>  ¿Te Gustaria Recibir Informacion del Mes De La Moda?</label></div>
+                    <br>
+                    <div class="btn-group">
+
+                            <label> <input icheck type="radio" name="radioTest"
+                                ng-model="Imm" value="1">&nbsp;<i class="fa fa-thumbs-o-up"></i>&nbsp; Si </label>
+                            <label> <input icheck type="radio" name="radioTest"
+                                ng-model="Imm" value="0">&nbsp;<i class="fa fa-thumbs-o-down"></i>&nbsp; No </label>
+
+                    </div>
+                </div>
+
+          </div>
+
+        </div> 
+<!-- -->
+<div class="hr-line-dashed"></div>
+<!-- Boton Regitro-->
+<div class="text-right">
+        <div class="row text-right" ng-controller="FormaCtrl">
+                <div class="col-lg-6 h-100 p-lg">
+                    <br>
+                </div>
+            </div>
+            <button ng-href="" class="btn btn-primary dim btn-block btn-outline" ng-click="registrarDatosforma()"><i class="fa fa-edit"></i>Registrar</button>
+    </div>  
+</div>
+<!-- -->
+
+
+<button class="btn btn-primary dim btn-block btn-outline" ng-click="Pruebas()"><i class="fa fa-edit"></i>Prueba</button>
+
+
+<script>
+        function soloLetras(e){
+           key = e.keyCode || e.which;
+           tecla = String.fromCharCode(key).toLowerCase();
+           letras = " áéíóúabcdefghijklmnñopqrstuvwxyz";
+           especiales = "8-37-39-46";
+    
+           tecla_especial = false
+           for(var i in especiales){
+                if(key == especiales[i]){
+                    tecla_especial = true;
+                    break;
+                }
+            }
+    
+            if(letras.indexOf(tecla)==-1 && !tecla_especial){
+                return false;
+            }
+        }
+    </script>
+
+
+     
+     
+             
+
+         
+         
+                       
+        
+      
+ 
